@@ -1,0 +1,10 @@
+{
+    "url": "https://example.testrail.com/index.php?/api/v2",
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "auth": {
+        "user": "",
+        "pass": ""
+    }
+}
