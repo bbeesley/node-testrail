@@ -1,7 +1,7 @@
 /*jslint node: true */
-var sa = require('superagent'),
+var request = require('../agent.js').init(),
     help = require('./helpers.js'),
-    config = require('../config.json'),
+    baseUrl = require('../agent.js').url,
     validationRules = require('./rules.json'),
     getCase,
     getCases,
@@ -14,13 +14,9 @@ getCase = function (caseId, next) {
     var id, url, err, res;
     if (typeof (caseId) === 'string' || typeof (caseId) === 'number') {
         id = caseId;
-        url = config.url + '/get_case/' + id;
-        sa
-            .set(config.headers)
-            .auth(config.auth.user, config.auth.pass)
-            .get(url)
-            .end(function (r) {
-                res = r;
+        url = baseUrl + '/get_case/' + id;
+        request.get(url)
+            .end(function (err, res) {
                 return next(err, res);
             });
     } else {
@@ -35,17 +31,13 @@ getCases = function (options, next) {
     if (typeof (options) === 'object') {
         projId = options.projId;
         suiteId = options.suiteId;
-        url = config.url + '/get_cases/' + projId + '/' + suiteId;
+        url = baseUrl + '/get_cases/' + projId + '/' + suiteId;
         if (options.secId) {
             secId = options.secId;
             url += '/' + secId;
         }
-        sa
-            .get(url)
-            .set(config.headers)
-            .auth(config.auth.user, config.auth.pass)
-            .end(function (r) {
-                res = r;
+        request.get(url)
+            .end(function (err, res) {
                 return next(err, res);
             });
     } else {
@@ -58,7 +50,7 @@ addCase = function (options, next) {
     'use strict';
     var rules, fields, url, err, res;
     if (options.secId) {
-        url = config.url + '/add_case/' + options.secId;
+        url = baseUrl + '/add_case/' + options.secId;
     } else {
         err = new Error("Options object did not contain the secId (section id) element, which is required for this method");
         return next(err, res);
@@ -71,29 +63,20 @@ addCase = function (options, next) {
             err = e;
             return next(err, res);
         } else {
-            sa
-                .post(url)
-                .set(config.headers)
-                .auth(config.auth.user, config.auth.pass)
+            request.post(url)
                 .send(data)
-                .end(function (e, r) {
-                    if (e) {
-                        err = e;
-                    }
-                    if (r) {
-                        res = r;
-                    }
+                .end(function (err, res) {
                     return next(err, res);
                 });
         }
     });
 };
 
-updateCase  = function (options, next) {
+updateCase = function (options, next) {
     'use strict';
     var rules, fields, url, err, res;
     if (options.caseId) {
-        url = config.url + '/update_case/' + options.caseId;
+        url = baseUrl + '/update_case/' + options.caseId;
     } else {
         err = new Error("Options object did not contain the caseId (case id) element, which is required for this method");
         return next(err, res);
@@ -106,18 +89,9 @@ updateCase  = function (options, next) {
             err = e;
             return next(err, res);
         } else {
-            sa
-                .post(url)
-                .set(config.headers)
-                .auth(config.auth.user, config.auth.pass)
+            request.post(url)
                 .send(data)
-                .end(function (e, r) {
-                    if (e) {
-                        err = e;
-                    }
-                    if (r) {
-                        res = r;
-                    }
+                .end(function (err, res) {
                     return next(err, res);
                 });
         }
@@ -131,24 +105,15 @@ deleteCase = function (caseId, next) {
         err = new Error("The first argument, caseId, must be passed as a number or string");
         return next(err, res);
     }
-    url = config.url + '/delete_case/' + caseId;
-    sa
-        .post(url)
-        .set(config.headers)
-        .auth(config.auth.user, config.auth.pass)
-        .end(function (e, r) {
-            if (e) {
-                err = e;
-            }
-            if (r) {
-                res = r;
-            }
+    url = baseUrl + '/delete_case/' + caseId;
+    request.post(url)
+        .end(function (err, res) {
             return next(err, res);
         });
 };
 
 exports.getCase = getCase;
-exports.getCases = getcases;
+exports.getCases = getCases;
 exports.addCase = addCase;
 exports.updateCase = updateCase;
 exports.deleteCase = deleteCase;

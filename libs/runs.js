@@ -1,7 +1,7 @@
 /*jslint node: true */
-var sa = require('superagent'),
+var request = require('../agent.js').init(),
     help = require('./helpers.js'),
-    config = require('../config.json'),
+    baseUrl = require('../agent.js').url,
     validationRules = require('./rules.json'),
     getRun,
     getRuns,
@@ -17,19 +17,10 @@ getRun = function (runId, next) {
         err = new Error("The first argument, runId, must be passed as a number or string");
         return next(err, res);
     }
-    url = config.url + '/get_run/' + runId;
-    sa
-        .get(url)
-        .set(config.headers)
-        .auth(config.auth.user, config.auth.pass)
+    url = baseUrl + '/get_run/' + runId;
+    request.get(url)
         .end(function (e, r) {
-            if (e) {
-                err = e;
-            }
-            if (r) {
-                res = r;
-            }
-            return next(err, res);
+            return next(e, r);
         });
 };
 
@@ -40,18 +31,32 @@ getRuns = function (projId, next) {
         err = new Error("The first argument, projId, must be passed as a number or string");
         return next(err, res);
     }
-    url = config.url + '/get_runs/' + projId;
-    sa
-        .get(url)
-        .set(config.headers)
-        .auth(config.auth.user, config.auth.pass)
+    url = baseUrl + '/get_runs/' + projId;
+    request.get(url)
         .end(function (e, r) {
-            if (e) {
-                err = e;
-            }
-            if (r) {
-                res = r;
-            }
-            return next(err, res);
+            return next(e, r);
         });
+};
+
+addRun = function (projId, options, next) {
+    'use strict';
+    var url, err, res, rules = validationRules.addRun;
+    if (typeof projId !== 'number' && typeof projId !== 'string') {
+        err = new Error("The first argument, projId, must be passed as a number or string");
+        return next(err, res);
+    }
+    url = baseUrl + '/add_run/' + projId;
+    help.validate(options, rules, function (e, d) {
+        if (e) {
+            return next(e, res);
+        }
+        if (d) {
+            request.post(url)
+                .send(JSON.stringify(d))
+                .end(function (e, r) {
+                    return next(e, r);
+                });
+
+        }
+    });
 };

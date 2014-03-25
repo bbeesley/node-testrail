@@ -4,7 +4,8 @@
     "description": "A node module for easy access to the testrail API.",
     "main": "index.js",
     "dependencies": {
-        "superagent": ">=0.17.0"
+        "superagent": ">=0.17.0",
+        "superagent-defaults": ">=0.1.5"
     }
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
