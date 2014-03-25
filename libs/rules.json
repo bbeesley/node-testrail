@@ -1,0 +1,54 @@
+{
+	"addCase": {
+		"title": {
+			"name": "title",
+			"expect": "string"
+		},
+		"typeId": {
+			"name": "type_id",
+			"expect": "number"
+		},
+		"priId": {
+			"name": "priority_id",
+			"expect": "number"
+		},
+		"estimate": {
+			"name": "estimate",
+			"expect": "string"
+		},
+		"milestoneId": {
+			"name": "milestone_id",
+			"expect": "number"
+		},
+		"refs": {
+			"name": "refs",
+			"expect": "string"
+		}
+	},
+    "updateCase": {
+		"title": {
+			"name": "title",
+			"expect": "string"
+		},
+		"typeId": {
+			"name": "type_id",
+			"expect": "number"
+		},
+		"priId": {
+			"name": "priority_id",
+			"expect": "number"
+		},
+		"estimate": {
+			"name": "estimate",
+			"expect": "string"
+		},
+		"milestoneId": {
+			"name": "milestone_id",
+			"expect": "number"
+		},
+		"refs": {
+			"name": "refs",
+			"expect": "string"
+		}
+	}
+}
