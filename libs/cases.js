@@ -11,15 +11,17 @@ var sa = require('superagent'),
 getCase = function (caseId, next) {
     if (typeof (caseId) === 'string' || typeof (caseId) === 'number') {
         var id = caseId,
-            url = config.url + '/get_case/' + id,
-            a;
+            url = config.url + '/get_case/' + id;
         sa
             .set(config.headers)
+            .auth(config.auth.user, config.auth.pass)
         // implement auth
         .get(url)
             .end(function (res) {
-                // deal with the server response
-                // send the callback
+                next(null, res);
             });
+    } else {
+        var a = new Error("The caseId variable in neither string or a number");
+        next(a);
     }
 };
