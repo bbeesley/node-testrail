@@ -6,7 +6,7 @@
     "dependencies": {
         "superagent": ">=0.17.0",
         "superagent-defaults": ">=0.1.5"
-    }
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -27,7 +27,7 @@
             "name": "Carrie O'Malley",
             "email": "carrie.omalley@gmail.com"
         }
-    ]
+    ],
     "license": "GPLv2",
     "bugs": {
         "url": "https://github.com/bbeesley/node-testrail/issues"

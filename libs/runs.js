@@ -1,7 +1,5 @@
 /*jslint node: true */
-var request = require('../agent.js').init(),
-    help = require('./helpers.js'),
-    baseUrl = require('../agent.js').url,
+var help = require('./helpers.js'),
     validationRules = require('./rules.json'),
     getRun,
     getRuns,
@@ -12,7 +10,7 @@ var request = require('../agent.js').init(),
 
 getRun = function (runId, next) {
     'use strict';
-    var url, err, res;
+    var url, err, res, request = this.request, baseUrl = this.url;
     if (typeof runId !== 'number' && typeof runId !== 'string') {
         err = new Error("The first argument, runId, must be passed as a number or string");
         return next(err, res);
@@ -26,7 +24,7 @@ getRun = function (runId, next) {
 
 getRuns = function (projId, next) {
     'use strict';
-    var url, err, res;
+    var url, err, res, request = this.request, baseUrl = this.url;
     if (typeof projId !== 'number' && typeof projId !== 'string') {
         err = new Error("The first argument, projId, must be passed as a number or string");
         return next(err, res);
@@ -40,7 +38,7 @@ getRuns = function (projId, next) {
 
 addRun = function (projId, options, next) {
     'use strict';
-    var url, err, res, rules = validationRules.addRun;
+    var url, err, res, rules = validationRules.addRun, request = this.request, baseUrl = this.url;
     if (typeof projId !== 'number' && typeof projId !== 'string') {
         err = new Error("The first argument, projId, must be passed as a number or string");
         return next(err, res);

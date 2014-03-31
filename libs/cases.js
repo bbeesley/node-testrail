@@ -1,7 +1,5 @@
 /*jslint node: true */
-var request = require('../agent.js').init(),
-    help = require('./helpers.js'),
-    baseUrl = require('../agent.js').url,
+var help = require('./helpers.js'),
     validationRules = require('./rules.json'),
     getCase,
     getCases,
@@ -11,7 +9,7 @@ var request = require('../agent.js').init(),
 
 getCase = function (caseId, next) {
     'use strict';
-    var id, url, err, res;
+    var id, url, err, res, request = this.request, baseUrl = this.url;
     if (typeof (caseId) === 'string' || typeof (caseId) === 'number') {
         id = caseId;
         url = baseUrl + '/get_case/' + id;
@@ -27,7 +25,7 @@ getCase = function (caseId, next) {
 
 getCases = function (options, next) {
     'use strict';
-    var projId, suiteId, secId, url, err, res;
+    var projId, suiteId, secId, url, err, res, request = this.request, baseUrl = this.url;
     if (typeof (options) === 'object') {
         projId = options.projId;
         suiteId = options.suiteId;
@@ -48,7 +46,7 @@ getCases = function (options, next) {
 
 addCase = function (options, next) {
     'use strict';
-    var rules, fields, url, err, res;
+    var rules, fields, url, err, res, request = this.request, baseUrl = this.url;
     if (options.secId) {
         url = baseUrl + '/add_case/' + options.secId;
     } else {
@@ -74,7 +72,7 @@ addCase = function (options, next) {
 
 updateCase = function (options, next) {
     'use strict';
-    var rules, fields, url, err, res;
+    var rules, fields, url, err, res, request = this.request, baseUrl = this.url;
     if (options.caseId) {
         url = baseUrl + '/update_case/' + options.caseId;
     } else {
@@ -100,7 +98,7 @@ updateCase = function (options, next) {
 
 deleteCase = function (caseId, next) {
     'use strict';
-    var url, err, res;
+    var url, err, res, request = this.request, baseUrl = this.url;
     if (typeof caseId !== 'number' && typeof caseId !== 'string') {
         err = new Error("The first argument, caseId, must be passed as a number or string");
         return next(err, res);
