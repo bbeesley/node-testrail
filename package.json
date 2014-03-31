@@ -1,22 +1,36 @@
 {
-  "name": "node-testrail",
-  "version": "0.1.0",
-  "description": "A node module for easy access to the testrail API.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bbeesley/node-testrail.git"
-  },
-  "keywords": [
-    "node"
+    "name": "node-testrail",
+    "version": "0.1.0",
+    "description": "A node module for easy access to the testrail API.",
+    "main": "index.js",
+    "dependencies": {
+        "superagent": ">=0.17.0",
+        "superagent-defaults": ">=0.1.5"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bbeesley/node-testrail.git"
+    },
+    "keywords": [
+    "node", "testrail"
   ],
-  "author": "Bill Beesley",
-  "license": "GPLv2",
-  "bugs": {
-    "url": "https://github.com/bbeesley/node-testrail/issues"
-  },
-  "homepage": "https://github.com/bbeesley/node-testrail"
+    "author": {
+        "name": "Bill Beesley",
+        "email": "bbeesley@me.com",
+        "url": "http://billbeesley.com"
+    },
+    "contributors": [
+        {
+            "name": "Carrie O'Malley",
+            "email": "carrie.omalley@gmail.com"
+        }
+    ],
+    "license": "GPLv2",
+    "bugs": {
+        "url": "https://github.com/bbeesley/node-testrail/issues"
+    },
+    "homepage": "https://github.com/bbeesley/node-testrail"
 }
