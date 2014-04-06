@@ -60,3 +60,58 @@ addRun = function (projId, options, next) {
         }
     });
 };
+
+updateRun = function (runId, options, next) {
+    'use strict';
+    var url, err, res, rules = validationRules.updateRun;
+    if (typeof runId !== 'number' && typeof runId !== 'string') {
+        err = new Error("The first argument, runId, must be passed as a number or string");
+        return next(err, res);
+    }
+    url = baseUrl + '/update_run/' + runId;
+    help.validate(options, rules, function (e, r) {
+        if (e) return next(e, res);
+        if (r) {
+            request.post(url)
+                .send(JSON.stringify(r))
+                .end(function (e, r) {
+                    return next(e, r);
+                });
+        }
+    });
+};
+
+closeRun = function (runId, next) {
+    'use strict';
+    var url, err, res;
+    if (typeof runId !== 'number' && typeof runId !== 'string') {
+        err = new Error("The first argument, runId, must be passed as a number or string");
+        return next(err, res);
+    }
+    url = baseUrl + '/update_run/' + runId;
+    request.post(url)
+        .end(function (e, r) {
+            next(e, r);
+        });
+};
+
+deleteRun = function (runId, next) {
+    'use strict';
+    var url, err, res;
+    if (typeof runId !== 'number' && typeof runId !== 'string') {
+        err = new Error("The first argument, runId, must be passed as a number or string");
+        return next(err, res);
+    }
+    url = baseUrl + '/delete_run/' + runId;
+    request.post(url)
+        .end(function (e, r) {
+            next(e, r);
+        });
+};
+
+exports.getRun = getRun;
+exports.getRuns = getRuns;
+exports.addRun = addRun;
+exports.updateRun = updateRun;
+exports.closeRun = closeRun;
+exports.deleteRun = deleteRun;

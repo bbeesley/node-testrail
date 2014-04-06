@@ -46,19 +46,12 @@ getCases = function (options, next) {
     }
 };
 
-addCase = function (options, next) {
+addCase = function (secId, options, next) {
     'use strict';
     var rules, fields, url, err, res;
-    if (options.secId) {
-        url = baseUrl + '/add_case/' + options.secId;
-    } else {
-        err = new Error("Options object did not contain the secId (section id) element, which is required for this method");
-        return next(err, res);
-    }
-    fields = options;
-    delete fields.secId;
+    url = baseUrl + '/add_case/' + secId;
     rules = validationRules.addCase;
-    help.validate(fields, rules, function (e, data) {
+    help.validate(options, rules, function (e, data) {
         if (e) {
             err = e;
             return next(err, res);
@@ -72,19 +65,12 @@ addCase = function (options, next) {
     });
 };
 
-updateCase = function (options, next) {
+updateCase = function (caseId, options, next) {
     'use strict';
     var rules, fields, url, err, res;
-    if (options.caseId) {
-        url = baseUrl + '/update_case/' + options.caseId;
-    } else {
-        err = new Error("Options object did not contain the caseId (case id) element, which is required for this method");
-        return next(err, res);
-    }
-    fields = options;
-    delete fields.caseId;
+    url = baseUrl + '/update_case/' + caseId;
     rules = validationRules.updateCase;
-    help.validate(fields, rules, function (e, data) {
+    help.validate(options, rules, function (e, data) {
         if (e) {
             err = e;
             return next(err, res);

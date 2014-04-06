@@ -80,5 +80,27 @@
             "name": "case_ids",
             "expect": "object"
         }
+    },
+    "updateRun": {
+        "name": {
+            "name": "name",
+            "expect": "string"
+        },
+        "description": {
+            "name": "description",
+            "expect": "string"
+        },
+        "milestoneId": {
+            "name": "milestone_id",
+            "expect": "number"
+        },
+        "includeAll": {
+            "name": "include_all",
+            "expect": "boolean"
+        },
+        "caseIds": {
+            "name": "case_ids",
+            "expect": "object"
+        }
     }
 }

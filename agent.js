@@ -1,3 +1,4 @@
+/*jslint node: true */
 var defaults = require('superagent-defaults'),
     superagent = defaults(),
     url = "https://example.testrail.com/index.php?/api/v2",
