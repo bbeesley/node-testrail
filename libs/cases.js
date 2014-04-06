@@ -1,7 +1,5 @@
 /*jslint node: true */
-var request = require('../agent.js').init(),
-    help = require('./helpers.js'),
-    baseUrl = require('../agent.js').url,
+var help = require('./helpers.js'),
     validationRules = require('./rules.json'),
     getCase,
     getCases,
@@ -11,7 +9,7 @@ var request = require('../agent.js').init(),
 
 getCase = function (caseId, next) {
     'use strict';
-    var id, url, err, res;
+    var id, url, err, res, request = this.request, baseUrl = this.url;
     if (typeof (caseId) === 'string' || typeof (caseId) === 'number') {
         id = caseId;
         url = baseUrl + '/get_case/' + id;
@@ -27,7 +25,7 @@ getCase = function (caseId, next) {
 
 getCases = function (options, next) {
     'use strict';
-    var projId, suiteId, secId, url, err, res;
+    var projId, suiteId, secId, url, err, res, request = this.request, baseUrl = this.url;
     if (typeof (options) === 'object') {
         projId = options.projId;
         suiteId = options.suiteId;
@@ -48,8 +46,20 @@ getCases = function (options, next) {
 
 addCase = function (secId, options, next) {
     'use strict';
+<<<<<<< HEAD
     var rules, fields, url, err, res;
     url = baseUrl + '/add_case/' + secId;
+=======
+    var rules, fields, url, err, res, request = this.request, baseUrl = this.url;
+    if (options.secId) {
+        url = baseUrl + '/add_case/' + options.secId;
+    } else {
+        err = new Error("Options object did not contain the secId (section id) element, which is required for this method");
+        return next(err, res);
+    }
+    fields = options;
+    delete fields.secId;
+>>>>>>> 24c5c5925448cebd66e76619af379336525808c0
     rules = validationRules.addCase;
     help.validate(options, rules, function (e, data) {
         if (e) {
@@ -67,8 +77,20 @@ addCase = function (secId, options, next) {
 
 updateCase = function (caseId, options, next) {
     'use strict';
+<<<<<<< HEAD
     var rules, fields, url, err, res;
     url = baseUrl + '/update_case/' + caseId;
+=======
+    var rules, fields, url, err, res, request = this.request, baseUrl = this.url;
+    if (options.caseId) {
+        url = baseUrl + '/update_case/' + options.caseId;
+    } else {
+        err = new Error("Options object did not contain the caseId (case id) element, which is required for this method");
+        return next(err, res);
+    }
+    fields = options;
+    delete fields.caseId;
+>>>>>>> 24c5c5925448cebd66e76619af379336525808c0
     rules = validationRules.updateCase;
     help.validate(options, rules, function (e, data) {
         if (e) {
@@ -86,7 +108,7 @@ updateCase = function (caseId, options, next) {
 
 deleteCase = function (caseId, next) {
     'use strict';
-    var url, err, res;
+    var url, err, res, request = this.request, baseUrl = this.url;
     if (typeof caseId !== 'number' && typeof caseId !== 'string') {
         err = new Error("The first argument, caseId, must be passed as a number or string");
         return next(err, res);
